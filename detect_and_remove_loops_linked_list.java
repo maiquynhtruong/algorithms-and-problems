@@ -1,16 +1,18 @@
 // http://www.geeksforgeeks.org/detect-and-remove-loop-in-a-linked-list/
-class Ideone {
-	class Node {
+
+
+public class Main {
+	static class Node {
 		int value;
 		Node next;
-		public Node(int val) {}
+		public Node(int val) {
 			this.value = val;
 			this.next = null;
 		}
 	}
-	Node head;
+	static Node head;
 
-	boolean detectLoops(Node head) {
+	boolean detectAndRemoveLoops(Node head) {
 
 		Node slow = head;
 		Node fast = head;
@@ -18,10 +20,10 @@ class Ideone {
 			fast = fast.next.next;
 			slow = slow.next;
 			if (slow == fast) {
+				
+				System.out.println("slow: " + slow.value + ", fast:" + fast.value);
 				removeLoops(head, slow);
-				System.out.println(slow.value);
 				return true;
-				}
 			}
 		}
 		return false;
@@ -40,7 +42,7 @@ class Ideone {
 		// for every node pointer 1 moves to. When pointer 2's next reaches pointer 1, we know pointer 2 is now the previous node
 		// before the start of loop node, and we can set pointer 2 to null
 		
-		p1 = head;
+		Node p1 = head, p2 = null;
 		while (true) {
 			p2 = cur; // point two pointers just met
 			while (p2.next != cur && p2.next != p1)
@@ -51,21 +53,32 @@ class Ideone {
 			p1 = p1.next;
 		}
 		// since pointer 2 is the pointer before the start of loop, we can set it to null
+		System.out.println("pointer1: " + p1.value + ", pointer2: " + p2.value);
 		p2.next = null;
 	}
 
+	public void printList(Node head) {
+		Node cur = head;
+		while (cur != null) {
+			System.out.print(cur.value + " ");
+			cur = cur.next;
+		}	
+	}
+	
 	public static void main(String[] args) {
+		Main m = new Main();
 		head = new Node(50);
 		head.next = new Node(20);
 		head.next.next = new Node(15);
 		head.next.next.next = new Node(4);
 		head.next.next.next.next = new Node(10);
 		// Create a loop right here right now
-		head.next.next.next.next = head.next.next;
+		head.next.next.next.next.next = head.next.next;
 		// Visually it looks like this:
 		// 50 -> 20 -> 15 -> 4
 		//              |    |
 		//               <- 10
-
+		m.detectAndRemoveLoops(head);
+		m.printList(head);
 	}
 }
