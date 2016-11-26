@@ -1,4 +1,5 @@
 // http://www.geeksforgeeks.org/find-minimum-depth-of-a-binary-tree/
+// http://ideone.com/wQzwrU
 
 public class Main {
 	static class Node {
@@ -13,17 +14,17 @@ public class Main {
 		}
 	}
 	Node root;
-	static int min = Integer.MAX_VALUE);
+	//static int min = Integer.MAX_VALUE;
 	int traverse(Node root) {
 		if (root == null) 
 			return 0;
 		if (root.leftChild == null && root.rightChild == null)
 			return 1;
 		if (root.rightChild == null && root.leftChild != null)
-			return traverse(leftChild) + 1;
+			return traverse(root.leftChild) + 1;
 		if (root.leftChild == null && root.rightChild != null) 
-			return traverse(rightChild) + 1;
-		return Math.min(traverse(leftChild), traverse(rightChild)) + 1;
+			return traverse(root.rightChild) + 1;
+		return Math.min(traverse(root.leftChild), traverse(root.rightChild)) + 1;
 	}
 
 	public static void main(String[] args) {
