@@ -23,7 +23,23 @@ for i in range(len(nums)):
 						print nums[i], nums[j], nums[k]
 						curNum += nums[k]
 				curNum += nums[j]
-		curNum += nums[i]	
-	
+		curNum += nums[i]		
         
 # Better version
+
+nums = map(int, raw_input().split())
+t = int(raw_input())
+res = 0
+nums.sort()
+if len(nums) < 3 or not nums: res = 0
+else:
+	for i in range(len(nums)-2):
+		j = i+1
+		k = len(nums)-1
+		while j < k:
+			if nums[i] + nums[j] + nums[k] < t:
+				res += k-j
+				j+=1
+			else:
+				k-=1
+	print res
