@@ -6,3 +6,5 @@ Currently working on:
 - http://courses.csail.mit.edu/iap/interview/Hacking_a_Google_Interview_Handout_3.pdf
 - https://www.reddit.com/r/cscareerquestions/comments/20ahfq/heres_a_pretty_big_list_of_programming_interview/
 - http://articles.leetcode.com/
+- https://github.com/haoel/leetcode
+- http://buttercola.blogspot.com/search/label/Leetcodes
