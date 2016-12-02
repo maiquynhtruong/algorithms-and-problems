@@ -1,3 +1,4 @@
+// Not finished
 // Basically the same problem as two rectangles overlapping but now count the number of windows (rectangles) that needs to be
 // close in order to close the bottommost window. The close button is at the top right corner
 
