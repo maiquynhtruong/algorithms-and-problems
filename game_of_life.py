@@ -1,19 +1,4 @@
-url: https://www.overstock.com/-/-/9076580/product.html
-make a function that returns the price of a product given its id (9076580 above)
-
-import urllib2
-from bs4 import BeautifulSoup
-
-def getPrice(url) {
-  f = urllib2.open(url)
-  text = f.read()
-  soup = BeautifulSoup(text)
-  price = soup.find('span', {'class':'monetary-price-value'}).text
-  print price
-}
-
------
-
+# Not finished
 func(board)->board
 if cell was alive:
   still alive if it has 2 or 3 living neighbors
