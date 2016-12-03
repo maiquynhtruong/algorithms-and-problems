@@ -1,6 +1,13 @@
 // Not finished
 // Basically the same problem as two rectangles overlapping but now count the number of windows (rectangles) that needs to be
 // close in order to close the bottommost window. The close button is at the top right corner
+// Input format: First line has N, number of windows. For the next N lines, there are 4 numbers in the ith line. u[i], v[i], x[i], y[i] 
+// representing upper left coordinates (u[i], v[i]) and lower right coordinatese (x[i], y[i]) of the ith window 
+// Example input:
+// 3
+// 1 4 7 1
+// 2 5 6 2
+// 2 9 5 7
 
 #include <iostream>
 using namespace std;
