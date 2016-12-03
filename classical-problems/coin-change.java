@@ -18,7 +18,7 @@ class Ideone
     public static int coinChange(int[] coins, int amount) {
         int dp[] = new int[amount + 1];
         dp[0] = 0;
-        for (int i = 1; i <= amount; i++) dp[i] = Integer.MAX_VALUE;
+        for (int i = 1; i <= amount; i++) dp[i] = amount + 1;
         for (int i = 0; i < coins.length; i++)
             if (coins[i] <= amount) dp[coins[i]] = 1;
         Arrays.sort(coins);
