@@ -1,6 +1,5 @@
-// Definition for singly-linked list.
+// https://leetcode.com/problems/add-two-numbers/
 
-//public 
 class Solution {
     // public class ListNode {
     // int val;
