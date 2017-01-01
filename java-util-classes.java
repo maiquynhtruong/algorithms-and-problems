@@ -157,3 +157,43 @@ class String
 		
 	}
 }
+
+class BigInteger
+{
+	public static void main (String[] args) throws java.lang.Exception
+	{
+		BigInteger a = new BigInteger("12345");
+		BigInteger b = new BigInteger("67891");
+		
+		BigInteger sum = a.add(b);
+		BigInteger diff = a.subtract(b);
+		BigInteger product = a.multiply(b);
+		BigInteger quotient = a.divide(b);
+		//Returns an array of two BigIntegers containing (this / val) followed by (this % val).
+		BigInteger[] quotientAndRemainder = a.divideAndRemainder(b);
+		BigInteger and = a.and(b); // a & b
+		BigInteger andNot = a.andNot(b); // a & ~b
+		int result = a.compareTo(b); //Compares this BigInteger with the specified BigInteger.
+		double d = a.doubleValue(); // Converts this BigInteger to a double.
+		float f = a.floatValue(); //Converts this BigInteger to a float.
+		BigInteger gcd = a.gcd(b); //Returns a BigInteger whose value is the greatest common divisor of abs(this) and abs(val).
+		int i = a.intValue(); //Converts this BigInteger to an int.
+		long l = a.longValue(); //Converts this BigInteger to a long.
+		int equal = a.equals(b); // a == b
+		BigInteger max = a.max(b); //Returns the maximum of a and b
+		BigInteger min = a.min(b); //Returns the minimum of a and b
+		BigInteger mod = a.mod(b); // a mod b
+		BigInteger modInverse = a.modInverse(b); // a^(-1) mod b
+		BigInteger modPow = a.modPow(BigInteger exponent, BigInteger m); // a^(exponent) mod m
+		BigInteger negate = a.negate(); // -a
+		BigInteger not = a.not(); // ~a
+		BigInteger or = a.or(b)); // a | b
+		BigInteger pow = a.pow(int exponent); // a^(exponent)
+		BigInteger remainder = a.remainder(b); // a % b
+		BigInteger shiftRight = a.shiftRight(int n); // a >> n
+		BigInteger shiftLeft = a.shiftLeft(int n); // a << n
+		BigInteger xor = a.xor(b); // a xor b
+		String num = a.toString(); // Returns the decimal String representation of this BigInteger.
+		BigInteger bigLong = BigInteger.valueOf(long num); //Returns a BigInteger whose value is equal to that of the specified long.
+	}
+}
