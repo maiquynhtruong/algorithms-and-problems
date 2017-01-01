@@ -197,3 +197,19 @@ class BigInteger
 		BigInteger bigLong = BigInteger.valueOf(long num); //Returns a BigInteger whose value is equal to that of the specified long.
 	}
 }
+class Character
+{
+	public static void main (String[] args) throws java.lang.Exception
+	{
+		char a = 'a';
+		boolean isLetter = Character.isLetter(a);
+		boolean isLetterOrDigit = Character.isLetterOrDigit(a);
+		boolean isLowerCase = Character.isLowerCase(a);
+		boolean isUpperCase = Character.isUpperCase(a);
+		boolean isSpaceChar = Character.isSpaceChar(a);
+		boolean isWhiteSpace = Character.isWhiteSpace(a);
+		char toLowerCase = Character.toLowerCase(a);
+		char toUpperCase = Character.toUpperCase(a);
+		Character c = Character.valueOf(a);
+	}
+}
