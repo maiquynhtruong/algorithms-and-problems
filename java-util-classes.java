@@ -213,3 +213,73 @@ class Character
 		Character c = Character.valueOf(a);
 	}
 }
+
+class StringBuilder 
+{
+	public static void main (String[] args) throws java.lang.Exception
+	{
+		String s = "abcdefgh";
+		StringBuilder sb = new StringBuilder(s);
+		// Appends string representation of E to the end of sb
+		sb = sb.append(E e); // E can be any primitive type or toString() of an Object
+		
+		// Appends the string representation of the char array argument to this sequence.
+		sb = sb.append(char[] str);
+		// Appends the string representation of a subarray of the char array argument to this sequence.
+		sb = sb.append(char[] str, int offset, int len)
+		// Appends the specified string to this character sequence.
+		sb = sb.append(String str)
+		// Appends the specified StringBuffer to this sequence.
+		append(StringBuffer sb)
+		
+		// Returns the char value in this sequence at the specified index
+		char c = sb.charAt(int index)
+		
+		// Removes the characters in a substring of this sequence.
+		sb = sb.delete(int start, int end)
+		
+		// Removes the char at the specified position in this sequence.
+		sb.deleteCharAt(int index)
+		
+		// Characters are copied from this sequence into the destination character array dst.
+		void sb.getChars(int srcBegin, int srcEnd, char[] dst, int dstBegin)
+		
+		// Returns the index within this string of the first occurrence of the specified substring.
+		int index = sb.indexOf(String str)
+		// Returns the index within this string of the first occurrence of the specified substring, starting at the specified index.
+		int index = sb.indexOf(String str, int fromIndex)
+		
+		// Inserts the string representation of the Object argument into this character sequence.
+		// It can also be of primitive types
+		sb = sb.insert(int offset, Object obj)
+		// Inserts the string representation of a subarray of the str array argument into this sequence.
+		sb = sb.insert(int index, char[] str, int offset, int len)
+		// Inserts the string representation of the char array argument into this sequence.
+		sb = sb.insert(int offset, char[] str)
+		// Inserts the string into this character sequence
+		sb = sb.insert(int offset, String str)
+		
+		// Returns the index within this string of the rightmost occurrence of the specified substring.
+		index = sb.lastIndexOf(String str)
+		// Returns the index within this string of the last occurrence of the specified substring.
+		index = sb.lastIndexOf(String str, int fromIndex)
+		
+		// Replaces the characters in a substring of this sequence with characters in the specified String.
+		sb = sb.replace(int start, int end, String str)
+		
+		// Causes this character sequence to be replaced by the reverse of the sequence.
+		sb = sb.reverse()
+		
+		// The character at the specified index is set to ch.
+		void setCharAt(int index, char ch)
+		
+		// Returns a new String that contains a subsequence of characters currently contained in this character sequence.
+		String s = sb.substring(int start)
+		// Returns a new String that contains a subsequence of characters currently contained in this sequence.
+		s = sb.substring(int start, int end)
+		
+		// Returns a string representing the data in this sequence.
+		s = sb.toString();
+		
+	}
+}
