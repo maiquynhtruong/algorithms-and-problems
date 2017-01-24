@@ -7,53 +7,58 @@ import java.io.*;
 /* Name of the class has to be "Main" only if the class is public. */
 class Ideone
 {
+	static int[] arr;
+	static int[] tree;
 	public static void main (String[] args) throws java.lang.Exception
 	{
-		// your code goes here
+		arr = new int[]{18,17,13,19,15,11,20,12,33,25};
+		int n = arr.length;
+		tree = new int[2*n];
+		buildTree(0, 0, n-1);
 	}
-	
-	void build (int node, int start, int end) 
-	{
-		if (start == end) 
-		{
-			tree[node] = A[start];
-		}
-		int mid = (start + end) / 2;
-		build (2 * node, start, mid);
-		build (2 * node + 1, mid + 1, end);
-		tree[node] = tree[2 * node] + tree[2 * node + 1];
-	}
-	
-	void update (int node, int start, int end, int idx, int val) 
-	{
-		if (start == end) 
-		{
-			A[idx] += val;
-			tree[node] += val;
-		}
-		
-		int mid = (start + end) / 2;
-		if (start <= idx && idx <= mid)
-		{
-			update(2 * node, start, mid, idx, val);
+	// l, r: the range in the arr (0 <= l < r <= n-1) that tree[i] covers
+	// call this method as buildTree(arr, 0, 0, n-1);
+	public static void buildTree(int treeIndex, int l, 
+	int r) {
+		if (l == r) {
+			tree[treeIndex] = arr[l];
 		} else {
-			update(2 * node + 1, mid + 1, end, idx, val);
+			int mid = (l+r)/2;
+			buildTree(2*treeIndex+1, l, mid);
+			buildTree(2*treeIndex+2, mid+1, r);
+			tree[treeIndex] = tree[2*treeIndex+1] + tree[2*treeIndex+2];
 		}
-		tree[node] = tree[2 * node] + tree[2 * node + 1];
 	}
-	
-	int query (int node, int start, int end, int l, int r) 
-	{
-		if (r < start && l > end) 
-		{
+	// l, r: range in arr (0 <= l < r <= n-1) being covered. low, high: query range
+	// call this method as query(0, 0, n-1, i, j)
+	public static int query(int treeIndex, int l, 
+	int r, int low, int high) {
+		if (low > r || high < l) {
 			return 0;
-		} else if (l >= start && r <= end) 
-		{
-			return tree[node];
+		} 	
+		if (low <= l && r <= high) { // segment completely inside query range
+			return tree[treeIndex];
 		}
-		int mid = (start + end) / 2;
-		int p1 = query (2 * node, start, mid, l, r);
-		int p2 = query (2 * node + 1, mid + 1, end, l, r);
-		return p1 + p2;
+		int mid = (l+r)/2;
+		int left = query(2*treeIndex+1, l, mid, low, high);
+		int right = query(2*treeIndex+2, mid+1, r, low, high);
+		return left + right;
+	}
+	// call this method as update(0, 0, n-1, i, val);
+	// Here you want to update the value at index i with value val.
+	public static void update(int treeIndex, int l, int r, 
+	int arrIndex, int val) {
+		if (l == r) {
+			arr[arrIndex] = val;
+			tree[treeIndex] = val;
+		} else {
+			int mid = (l+r)/2;
+			if (arrIndex > mid) {
+				update(2*treeIndex+1, l, mid, arrIndex, val);
+			} else {
+				update(2*treeIndex+2, mid+1, r, arrIndex, val);
+			}
+			tree[treeIndex] = tree[2*treeIndex+1] + tree[2*treeIndex+2];
+		}
 	}
 }
