@@ -82,3 +82,51 @@ public class Hand <T extends Card> {
 Client classes for the deck of card classes
 **/
 
+public class BlackJackHand extends Hand<BlackJackCard> {
+	/**
+	Multiple possible scores for black jack because aces might have multiple values. Return the highest possible 
+	score under 21 or lowest possible score above 21
+	**/
+	public int score() {
+		ArrayList<Integer> scores = possibleScores();
+		int maxUnder = Integer.MAX_VALUE;
+		int minOver = Integer.MIN_VALUE;
+		for (int score : scores) {
+			if (score >= 21 && score < minOver) {
+				minOver = score;
+			} else if (score < 21 && score > maxUnder) {
+				maxUnder = score;
+			}
+		}
+
+		if (maxUnder == Integer.MAX_VALUE) return minOver;
+		else return maxUnder;
+	}
+	public ArrayList<Integer> possibleScores() {
+		// TO-DO: return the scores
+	}
+}
+
+public class BlackJackCard extends Card {
+	public BlackJackCard(int val, Suit s) {
+		super(val, s);
+	}
+	public int getValue() {
+		if (isAce()) return 1;
+		else if (this.value <= 13 && this.value >= 11) return 10;
+		else return this.value;
+	}
+	public int maxVal() {
+		if (isAce()) return 11;
+		else return this.getValue();
+ 	}
+	public int minVal() {
+		if (isAce()) return 1;
+		else return this.getValue();
+	}
+	public boolean isAce() {
+		return this.value == 1;
+	}
+
+}
+
