@@ -23,15 +23,13 @@ public class Buffer1() {
 	public void left(int k) {
 		// assuming no stackoverflow
 		for (int i = 0; i < k; i++) {
-			char temp = stack1.pop(); 
-			stack2.push();
+			stack2.push(stack1.pop())
 		}
 	}
 	// move the cursor k positions to the right
 	public void right(int k) {
 		for (int i = 0; i < k; i++) {
-			char temp = stack2.pop(); 
-			stack1.push();
+			stack1.push(stack2.pop());
 		}
 	}
 	// number of characters in the buffer
@@ -103,10 +101,15 @@ public class Editor() {
 				+ "\n\t<#\tMove the cursor left by (#) number of places."
 				+ "\n\t>#\tMove the cursor right by (#) number of places.\n\n");
 	while (true) {
-		System.out.println("\t" + buffer);
+		// System.out.println("\t" + buffer); // this is for buffer2
+		System.out.println(Arrays.toString(buffer.stack1.toArray()) + "*" + Arrays.toString(buffer.stack2.toArray())); // This is for buffer 1
 		System.out.print(">")
-		String s = sc.nextLine();
-		char c = s.isEmpty() ? '\0' : s.charAt(0);
+		char c = '\0';
+		String s = "";
+		if (sc.hasNextLine()) {
+			s = sc.nextLine();
+			c = s.charAt(0);
+		}
 		switch (c) {
 			case '-':
 				buffer.delete();
@@ -117,17 +120,18 @@ public class Editor() {
 			case '!':
 				System.out.println("So long");
 				sc.close();
-				break;
+				return;
 			case '<':
 				int arg = new Integer(s.substring(1, s.length()));
 				buffer.left(arg);
 				break;
 			case '>':
-				int arg = new Integer(s.substring(1, s.length()));
+				arg = new Integer(s.substring(1, s.length()));
 				buffer.right(arg);
 				break;
 			case '\0':
-				break;
+				System.out.println("End of input");
+				return;
 			case '+':
 				c = s.charAt(1);
 			default:
