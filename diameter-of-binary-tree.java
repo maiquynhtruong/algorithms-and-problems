@@ -44,3 +44,42 @@ public class BinaryTree {
 		return 1 + Math.max(height(node.left), height(node.right));
 	}
 }
+
+/** 
+ * Optimization can be achieved by calculating the height in the same recursion rather
+ * than call height() separately.
+ **/
+
+class Height {
+	int val;
+}
+class BinaryTree2 {
+
+	Node root;
+	int helper(Node node, Height height) {
+		/**
+		 * hl -> height of left subtree
+		 * hr -> height of right subtree
+		 **/
+		Height hl = new Height(), hr = new Height();
+		if (node == null) {
+			height.val = 0;
+			return 0;
+		}
+		/**
+		 * ldia -> diameter of left subtree
+		 * rdia -> diameter of right subtree
+		 **/
+		hl.val++; hr.val++;
+		int ldia = helper(node.left, hl);
+		int rdia = helper(node.right, hr);
+		// height of current node is max of heights of left and right subtrees plus 1
+		height.val = Math.max(hl.val, hr.val) + 1;
+		return Math.max(hl.val + hr.val + 1, Math.max(ldia, rdia));
+	}
+	int diameter() {
+		Height height = new Height();
+		return helper(root, height);
+	}
+	
+}
