@@ -18,11 +18,11 @@ class Ideone
 			int b = sc.nextInt();
 			uf.union(a, b);
 		}
-		int cnt = 0;
-		for (int i = 0; i < n; i++) {
-			if (uf.find(i) == i) cnt++;
+		HashSet<Integer> hs = new HashSet<Integer>();
+		for (int i = 1; i <= n; i++) {
+			hs.add(uf.find(i));
 		}
-		System.out.println(cnt);
+		System.out.println(hs.size());
 	}
 }
 
@@ -30,17 +30,19 @@ class UF{
 	int[] parent;
 	
 	public UF(int n) {
-		this.parent = new int[n];
-		for (int i = 0; i < n; i++) parent[i] = i;
+		this.parent = new int[n+1];
+		for (int i = 1; i <= n; i++) parent[i] = i;
 	}
 	public void union(int i, int j) {
+		// System.out.println("i= " + i + ", j= " + j);
 		int u = find(i);
 		int v = find(j);
+		// System.out.println("u= " + u + ", v= " + v);
 		if (u == v) return;
 		parent[u] = v;
 	}
 	public int find(int i) {
-		while (find(i) != i) i = find(i);
+		while (parent[i] != i) i = parent[i];
 		return i;
 	}
 }
