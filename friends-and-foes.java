@@ -26,6 +26,7 @@ class Ideone
 		int n = sc.nextInt();
 		size = new int[n];
 		parent = new int[n];
+		for (int i = 0; i < n; i++) size[i] = 1; 
 		int m1 = sc.nextInt();
 		while (m1--) {
 			int a = sc.nextInt(), b = sc.nextInt();
@@ -38,5 +39,8 @@ class Ideone
 				size[find(a)] = size[find(b)] = 0;
 			}
 		}
+		int ans = 0;
+		for (int i = 0; i < n; i++) ans = Math.max(ans, size[i]);
+		System.out.println(ans);
 	}
 }
