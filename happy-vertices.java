@@ -14,14 +14,22 @@ class Ideone
 		int n = sc.nextInt(), m = sc.nextInt();
 		for (int i = 0; i < m; i++) {
 			int x = sc.nextInt(), y = sc.nextInt();
-			
 		}
+		for (int i = 0; i < m; i++) 
+			if (!visited[i]) dfs(i);
 	}
+	int static cnt = 0;
 	public static void dfs(int u) {
+		int edges = 0, children = 0;
 		for (int i = 0; i < n; i++) {
+			edges++;
 			if (!visited[i] && a[u][i]) {
-				
+				children++;
+				dfs(i);
 			}
+		}
+		if (children > edges - children) {
+			cnt++;
 		}
 	}
 }
