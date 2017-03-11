@@ -42,7 +42,25 @@ class Ideone
 			if (parent[i] != -1)
 				if (children[i] > children[parent[i]]) cnt++;
 		System.out.println(cnt);
+		
+		/**
+		 * Another way to calculate is to find all the happy vertices and subtract
+		 * the master vertex. In each connected component, there is only one 
+		 * master vertex. 
+		 * int cnt = 0, ans = 0;
+		 * for (int i = 1; i <= n; i++) {
+		 * 		cnt++;
+		 * 		if (!visited[i]) dfs(i);
+		 * }
+		 * for (int i = 1; i <= n; i++) {
+		 * 		// if i is a master vertext, then parent[i] = 0, children[0] = 0, so ans in automatically
+		 * 		// incremented.
+		 * 		if (children[i] > children[parent[i]]) ans++; 
+		 * }
+		 * System.out.println(cnt-ans);
+		 * */
 	}
+	
 	public static void dfs(int u) {
 		visited[u] = true;
 		for (int v : nodes.get(u)) {
