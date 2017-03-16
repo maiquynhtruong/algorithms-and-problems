@@ -31,8 +31,14 @@ class Ideone
 		for (int i = 0; i < dist.length; i++) {
 			int next = minVertex(); // the smallest vertex in non-MST subset
 			visited[next] = true; // next has been included in MST
-			for (int v = 0; v < dist.length; v++) {
-				
+			for (int v = 0; v < dist.length; v++) { 
+				if (neigbors[next][v] && !visited[v]) {
+					if (dist[v] > neighbors[next][v]) { // gradually assigning best-known shortest distance from 
+									// v to MST
+						dist[v] = neighbors[next][v];
+						parent[v] = next;
+					}
+				}
 			}
 			
 		}
