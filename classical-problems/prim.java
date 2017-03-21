@@ -16,7 +16,9 @@ class Ideone
 		Scanner sc = new Scanner(System.in);
 		int m = sc.nextInt(); // edges
 		int n = sc.nextInt(); // vertices
+		int s = 0; // source vertex for prim. Default to 0
 		parent = new int[n];
+		visited = new boolean[n];
 		neighbors = new int[n][n];
 		// PriorityQueue<Edge> queue = new PriorityQueue<Edge>();
 		for (int i = 0; i < m; i++) {
@@ -27,14 +29,15 @@ class Ideone
 			neighbors[v][u] = w;
 		}
 		for (int i = 0; i < n; i++) dist[i] = Integer.MAX_VALUE;
-		dist[s] = 0;
-		for (int i = 0; i < dist.length; i++) {
+		dist[s] = 0; // zero will be picked first
+		parent[s] = -1;
+		for (int i = 0; i < n; i++) {
 			int next = minVertex(); // the smallest vertex in non-MST subset
 			visited[next] = true; // next has been included in MST
-			for (int v = 0; v < dist.length; v++) { 
+			// update dist of vertices connected to picked vertex. Consider only vertices not included in MST
+			for (int v = 0; v < n; v++) { 
 				if (neigbors[next][v] && !visited[v]) {
-					if (dist[v] > neighbors[next][v]) { // gradually assigning best-known shortest distance from 
-									// v to MST
+					if (dist[v] > neighbors[next][v]) { 
 						dist[v] = neighbors[next][v];
 						parent[v] = next;
 					}
@@ -45,6 +48,7 @@ class Ideone
 		
 	}
 	
+	// vertex with minimum distance from MST, from the set of non-MST vertices
 	public static int minVertex() {//int[] dist, boolean[] visited) {
 		int w = Integer.MAX_VALUE;
 		int i = -1;
