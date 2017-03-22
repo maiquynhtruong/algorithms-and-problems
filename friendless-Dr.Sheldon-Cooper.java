@@ -30,6 +30,14 @@ class Solution {
             int v = sc.nextInt();
             edges[i] = new Edge(u, v);
         }
+        int ans = 0;
+        for (int i = 0; i < a; i++) {
+            Edge e = edges[i];
+            if (find(e.u) != find(e.v)) {
+                ans++;
+                union(e.u, e.v);
+            }
+        }
     }
     
 }
