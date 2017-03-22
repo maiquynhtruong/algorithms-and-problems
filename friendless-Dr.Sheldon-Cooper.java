@@ -39,5 +39,9 @@ class Solution {
             }
         }
     }
+    /**************
+    Another way is the number of locations minus 1 because if each taxi stays in one city, then the minimum spanning tree has N-1
+    vertices, i.e. only need to trust N-1 taxis.
+    **************/
     
 }
