@@ -2,22 +2,29 @@
 public class Solution {
 	public static void main(String args[]) {
 		int[] w = new int[10];
+		int[] c = new int[10];
 		Scanner sc = new Scanner(System.in);
-		for (int i = 0; i < 10; i++) 
+		for (int i = 0; i < 10; i++) { 
 			w[i] = sc.nextInt();
-		int len = sc.nextInt();
-		int[] num = new int[len];
-		for (int i = 0; i < len; i++) {
-			num[i] = sc.nextInt();
-			dfs(w, 0, num[i]);
+			c[i] = Integer.MAX_INT;
 		}
-		 
-	}
-	
-	public void dfs(int[] w, int sum, int cur, int des) {
-		if (cur == des && sum < w[des]) 
-		for (int i = 0; i <= 9; i++) 
-			if (w[i] + sum < w[des]) dfs(w, w[i] + sum, (i+cur) % 10, des);
-			
+		int len = sc.nextInt();
+		while (true) {
+			boolean reduce = false;
+			for (int a = 0; a <= 9; a++) 
+				for (int b = a; b <= 9; b++) {
+					int num = (a+b) % 10;
+					if (c[num] > c[a] + c[b]) {
+						reduce = true;
+						c[num] = c[a] + c[b];
+					}
+				}
+		}
+		int ans = 0;
+		for (int i = 0; i < len; i++) {
+			int num = sc.nextInt();
+			ans += c[num];
+		}
+		 System.out.println(num);
 	}
 }
