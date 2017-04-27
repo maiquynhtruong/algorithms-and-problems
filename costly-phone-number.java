@@ -9,8 +9,9 @@ public class Solution {
 			c[i] = Integer.MAX_INT;
 		}
 		int len = sc.nextInt();
-		while (true) {
-			boolean reduce = false;
+		boolean reduce = true;
+		while (reduce) {
+			reduce = false;
 			for (int a = 0; a <= 9; a++) 
 				for (int b = a; b <= 9; b++) {
 					int num = (a+b) % 10;
