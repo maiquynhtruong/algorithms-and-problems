@@ -23,3 +23,46 @@ Constraints:
 
 0 ≤ k
 [output] array.integer
+
+
+import java.io.*;
+import java.util.*;
+
+class Solution {
+
+  static int[] pancakeSort(int[] arr) {
+      for (int i = arr.length - 1; i > 0; i--) {
+          int index = indexOfBiggest(arr, i);
+          
+          flip(arr, index);
+          flip(arr, i);
+      }
+      return arr;
+  }
+  
+  static void flip(int[] arr, int k) {
+      for (int i = 0; i < (k+1) / 2; i++) {
+          int temp = arr[i];  
+          arr[i] = arr[k - i];
+          arr[k - i] = temp;
+      }
+  }
+  
+  static int indexOfBiggest(int[] arr, int end) {
+      int index = 0, max = Integer.MIN_VALUE;
+      for (int i = 0; i <= end; i++) {
+          if (arr[i] > max) {
+              max = arr[i];
+              index = i;
+          } 
+      }
+      return index;
+  }
+
+  public static void main(String[] args) {
+      int[] arr = {1, 5, 4, 3, 2, 7, 6};
+      int[] res = pancakeSort(arr);
+      System.out.println(Arrays.toString(res));
+  }
+
+}
