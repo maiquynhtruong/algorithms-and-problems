@@ -2,8 +2,9 @@
 public class Solution {
     List<List<Integer>> lists;
     public static void listOfDepths(TreeNode root, int level) {
-        lists.get(level).add(root.left);
-        lists.get(level).add(root.right);
+        if (root == null) return;
+        if (lists.size() == level) lists.add(new LinkedList<Integer>());
+        lists.get(level).add(root.val);
         listOfDepths(root.left, level+1);
         listOfDepths(root.right, level+1);
     }
@@ -13,3 +14,4 @@ public class Solution {
     }
   
 }
+
