@@ -6,3 +6,13 @@ Projects: a, b, c, d, e, f
 Dependencies: (d, a), (b, f), (d, b), (a, f), (c, d)
 Output: f, e, a, b, d, c
 **/
+public class Solution {
+    public LinkedList<Integer> buildOrder(LinkedList<Integer> projects, HashMap<Integer, Integer> depedencies) {
+        for (Integer key : dependencies.keySet()) {
+            dependencies.get(key).next = key;
+        }
+    }
+    public static void main(String args[]) {
+           
+    }
+}
