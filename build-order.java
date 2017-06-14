@@ -7,9 +7,10 @@ Dependencies: (d, a), (b, f), (d, b), (a, f), (c, d)
 Output: f, e, a, b, d, c
 **/
 public class Solution {
-    public LinkedList<Integer> buildOrder(LinkedList<Integer> projects, HashMap<Integer, Integer> depedencies) {
-        for (Integer key : dependencies.keySet()) {
-            dependencies.get(key).next = key;
+    public LinkedList<Integer> buildOrder(LinkedList<Integer> projects, HashMap<Integer, List<Integer>> dep){
+        for (int proj : projects) {
+            List<Integer> subDep = dep(proj);
+            for (int p : subDep) res.addAfter(proj, p);
         }
     }
     public static void main(String args[]) {
