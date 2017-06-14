@@ -7,16 +7,17 @@ public class TreeNode {
     public TreeNode(int val) {this.val = val;}
 }
 public class Solution {
-    public TreeNode createTree(TreeNode root, int[] arr, int start, int end) {
-        if (root.left == null && root.right == null) return root;
-        TreeNode leftSubtree = createTree(new TreeNode(arr[(end - start) / 4]), arr, 0, (end - start) / 2);
-        TreeNode rightSubtree = createTree(new TreeNode(arr[3 * (end - start) / 4]), (end - start) / 2 + 1, end);
+    public TreeNode createTree(int[] arr, int start, int end) {
+        if (start > end) return null;
+        TreeNode root = new TreeNode(arr[(end + start) / 2]);
+        TreeNode leftSubtree = createTree(arr, 0, (end + start) / 2 - 1);
+        TreeNode rightSubtree = createTree(arr, (end + start) / 2 + 1, end);
         root.left = leftSubtree;
         root.right = rightSubtree;
     }
     public static void main(String args[]) {
         int[] arr = new int[]{1, 2, 3, 4, 5, 6, 7};
-        createTree(new TreeNode(arr[arr.length/2]), arr, 0, arr.length);
+        createTree(arr, 0, arr.length);
     }
 }
     
