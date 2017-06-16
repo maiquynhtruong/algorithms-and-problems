@@ -7,16 +7,48 @@ Dependencies: (d, a), (b, f), (d, b), (a, f), (c, d)
 Output: f, e, a, b, d, c
 **/
 public class Solution {
-    public LinkedList<Integer> buildOrder(LinkedList<Integer> projects, ){
-        HashMap<Integer, List<Integer>> depMap;
-        for (int[] pair : depPairs) {
-            if (!dep.contains(pair[0]))
-                dep.put(pair[0], new LinkedList<Integer>());
-            dep.get(pair[0]).add(pair[1]);
-            for (int p : subDep) res.addAfter(proj, p);
+    public class Project {
+        ArrayList<Project> children = new ArrayList<Project>();
+        HashMap<String, Project> nameMap = HashMap<String, Project>();
+        int dependencies;
+        String name;
+        public Project(String name) {
+            this.name = name;
+        }
+        public void addDependency(Project node) {
+            if (!nameMap.containsKey(node.name)) {
+                children.add(node);
+                dependencies++;
+            }
         }
     }
-    public static void main(String args[]) {
-           
+    public class Graph {
+        ArrayList<Project> nodes = new ArrayList<Project>();
+        HashMap<String, Project> nameMap = new HashMap<String, Project>();
+        public void addEdge(String start, String end) {
+            Project startProject = getOrCreateNode(start);
+            Project endProject = getOrCreateNode(end);
+            startProject.addDependency(endProject);
+        }
+        public Project getOrCreateNode(String name) {
+            if (!nameMap.containsKey(name)) {
+                Project newProject = new Project(name);   
+                nameMap.put(name, newProject);
+                nodes.add(newProject);
+            }
+            return nameMap.get(name);
+        }
+    }
+    public class Solution {
+        public Graph buildGraph(String[] projects, String[][] dependencies) {
+            Graph graph = new Graph();
+            for (String project : projects) graph.getOrCreateNode(project);
+            for (String[] dependency : dependencies) {
+                graph.addEdge(dependency[0], 
+            }
+        }
+        public static void main(String args[]) {
+               
+        }
     }
 }
