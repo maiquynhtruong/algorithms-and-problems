@@ -9,6 +9,30 @@ public class Solution {
     public class Game {
         int row, col;
         char[][] cells = new char[row][col];
+        /**
+        * Using some random method to select a cell to place bomb. Two cases: Either the cell is available 
+        * and we can place the bomb or it is taken and we need to place somewhere else
+        * Shuffling method: Place k bombs in the first k cells and shuffle all the cells around
+        * Shuffling an array operates by iterating through the array from i = 0 through N-1. For each i, we
+        * pick a random index between i and N-1 and sawp i with that index.
+        * For a grid, we just have to convert index into rows and columns
+        */
+        public void placeBombs() {
+            int numCells = row*col;
+            Random random = new Random();
+            for (int index1 = 0; index1 < numCells; index1++) {
+                int index2 = index1 + random.nextInt(numCells - index1);
+                if (index2 != index1) {
+                    int row1 = index1 / col;
+                    int col1 = numCells - row1*col;
+                    
+                    int row2 = index2 / col;
+                    int col2 = numCells - row2*col;
+                    
+                    //swap them
+                }
+            }
+        }
         public void initCells() {
             for (int i = 0; i < row; i++)
                 for (int j = 0; j < col; j++) {
@@ -66,6 +90,7 @@ public class Solution {
                     } else { display.expose(row+1, col); }
             }
         }
+        
     }
     public class Display {
         public void expose(int row, int col) {
