@@ -1,8 +1,8 @@
 #include <bits/stdc++.h>
 using namespace std;
 bool debug = false;
-char grid[101][101];
-int res[101][101];
+char grid[105][105];
+int res[105][105];
 int m, n;
 int dx[] = {-1, 0, 1, 0};
 int dy[] = {0, 1, 0, -1};
