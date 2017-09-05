@@ -2,45 +2,37 @@
 using namespace std;
 bool debug = true;
 int test, len, temp, carInd = 1;
-int cars[201], rmPort, rmStar;
-int dp[101][101][101];
+int cars[201], rmPort, rmStar; // remaining space on port and starboard
 int trace[101];
 
 int loadFerries(int car, int rmPort, int rmStarBoard) {
 	if (debug) cout << car << " " << rmPort << " " << rmStarBoard << "\n";
-	if (car == carInd || rmPort <= 0 || rmStarBoard <= 0) {
+	if (car == carInd || rmPort < cars[car] && rmStarBoard < cars[car]) {
 		return 0;
 	} else {
 		int res = 0;
-		if (rmPort < cars[car] && rmStarBoard < cars[car]) return 0;//res = loadFerries(car + 1, rmPort, rmStarBoard);
 		if (rmStarBoard < cars[car]) {
 			res = loadFerries(car + 1, rmPort - cars[car], rmStarBoard);
 			if (res > 0) {
-				res++;
 				trace[car] = 0;
-			} else return car;
+				return res+1;
+			} else return 1;
 		} else if (rmPort < cars[car]) {
 			res = loadFerries(car + 1, rmPort, rmStarBoard - cars[car]) ;
 			if (res > 0) {
-				res++;
 				trace[car] = 1;
-			} else return car;
+				return res+1;
+			} else return 1;
 		} else {
 			int port = loadFerries(car + 1, rmPort - cars[car], rmStarBoard);
 			int starboard = loadFerries(car + 1, rmPort, rmStarBoard - cars[car]);
-			if (port <= 0 && starboard <= 0) return 0;
-			else if (port <= 0) return starboard;
-			else if (starboard <= 0) return port;
-			else {
-				if (port > starboard) {
-					res = port + 1;
-					trace[car] = 0;
-				} else {
-					res = starboard + 1;
-					trace[car] = 1;
-				}	
+			if (port > starboard) {
+				trace[car] = 0;
+				return port + 1;
+			} else {
+				trace[car] = 1;
+				return starboard + 1;
 			}
-			return res;		
 		}
 		
 	}
@@ -59,46 +51,12 @@ int main() {
     	}
     	else break;
     }
-    cout << loadFerries(1, len, len) << "\n";
-    for (int i = 1; i <= carInd; i++) {
+    int ans = loadFerries(1, len, len);
+    cout << ans << "\n";
+    for (int i = 1; i <= ans; i++) {
     	if (trace[i] == 0) cout << "port" << "\n";
     	else cout << "starboard" << "\n";
     }
-  //   len = 26;
-  //   for (int i = 1; i <= carInd; i++) {
-  //   	dp[i][0][0] = 0; dp[i][cars[i]][0] = 1; dp[i][0][cars[i]] = 1;
-		// for (int rmStar = 0; rmStar <= len; rmStar++) { // remaining space in starboard		
-  //   		for (int rmPort = 0; rmPort <= len; rmPort++) { // remaining space in port
-  //   			if (rmPort < cars[i] && rmStar < cars[i]) {
-  //   				dp[i][rmPort][rmStar] = dp[i-1][rmPort][rmStar];
-  //   			} else {
-  //   				if (rmPort < cars[i] && cars[i] < rmStar) { // no space in port
-  //   					dp[i][rmPort][rmStar] = dp[i-1][rmPort][rmStar-cars[i]] + 1;
-  //   					trace[i] = 1;
-  //   				} else if (rmStar < cars[i] && cars[i] < rmPort) { // no space in starboard
-  //   					dp[i][rmPort][rmStar] = dp[i-1][rmPort-cars[i]][rmStar] + 1;
-  //   					trace[i] = 0;
-  //   				} else if (cars[i] < rmPort && cars[i] < rmStar) {
-  //   					int port = dp[i-1][rmPort - cars[i]][rmStar];
-  //   					int starboard = dp[i-1][rmPort][rmStar - cars[i]];
-  //   					if (port > starboard) {
-  //   						dp[i][rmPort][rmStar] = 1 + port;
-  //   						trace[i] = 0;
-  //   					} else {
-  //   						dp[i][rmPort][rmStar] = 1 + starboard;
-  //   						trace[i] = 1;
-  //   					}
-  //   				}
-  //   			}
-  //   			// if (debug) cout << dp[i][rmPort][rmStar] << " ";
-  //   		}
-  //   		// if (debug) cout << "\n" << dp[i][rmPort][len];
-  //   	}
-  //   	if (debug) cout << dp[i][len][len] << " ";
-  //   	if (trace[i] == 0) cout << "port" << "\n";
-  //   	else cout << "starboard" << "\n";
-  //   }
-  //   cout << dp[carInd][len][len] << "\n";
     return 0;
 	}
 
