@@ -42,7 +42,7 @@ int main() {
             cout << "NO" << "\n"; continue;
         }
         memset(&dp[0][0][0], -1, sizeof(dp));
-        int ans = distribute(sc, 1, 0, 0) || distribute(sc, 1, 0, 0);
+        int ans = distribute(sc, 1, 0, 0);
         if (ans==1) cout << "YES\n";
         else cout << "NO\n";
     }
