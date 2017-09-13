@@ -5,12 +5,12 @@ int n, testcases, car, tc = 1;
 int cars[2005];
 int LIS[2005], LDS[2005];
 int main() {
-    ifstream cin("trainsorting.inp");
+    //ifstream cin("trainsorting.inp");
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
     cin >> testcases;
-    while (tc <= testcases) {
-    	if (debug) cout << "test: " << tc++ << "\n";
+    while (tc++ <= testcases) {
+    	if (debug) cout << "test: " << tc-1 << "\n";
     	cin >> n;
     	for (int i = 1; i <= n; i++) {
     		cin >> car;
