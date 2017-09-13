@@ -2,36 +2,30 @@
 using namespace std;
 // global variables
 bool debug = false;
-int n, area = 1000000;
-int dim[35][5];
+int n, area = 1000000, block = 1, size[100][3], x, y, z;
 int main() {
     ifstream cin("babylon.inp");
     ios_base::sync_with_stdio(false); 
     cin.tie(NULL);
     while (cin >> n && n != 0) {
-    	x = {0}; y = {0}; z = {0};
     	for (int i = 1; i <= n; i++) {
-    		cin >> dim[i][1] >> dim[i][2] >> dim[i][3];
-    		L[dim[i][1]][dim[i][2]] = dim[i][3]; //L[y[i]][x[i]] = z[i];
-    		L[dim[i][1]][dim[i][3]] = dim[i][2]; //L[z[i]][x[i]] = y[i];
-    		L[dim[i][2]][dim[i][3]] = dim[i][1]; //L[z[i]][y[i]] = x[i];
+    		cin >> x >> y >> z;
+    		int size1 = dim[i][1]*dim[i][2], size2= dim[i][1]*dim[i][3], size3 = dim[i][2]*dim[i][3];
+    		size[block][1] = x; size[block][2] = y; size[block++][3] = z;
+    		if (z != y) {size[block][1] = x; size[block][2] = z; size[block++][3] = y; }
+    		if (x != y) {size[block][1] = y; size[block][2] = z; size[block++][3] = x; }
     	}	
-    	
-    	int L[35][35] = {0}; // LIS[i][w][l] tallest tower with top block the ith block
-    	// and surface of w*l; 
-    	for (int i = 1; i <= n; i++) {
-    		for (int j = 1; j <= n; j++) {
-    			if (dim[i][1] < dim[j][1] && dim[i][2] < dim[j][2]) 
-    				L[dim[i][1]][dim[i][2]] = L[dim[j][1]][dim[j][2]] + dim[i][3]; //L[y[i]][x[i]] = z[i];
-    			if (dim[i][1] < dim[j][1] && dim[i][3] < dim[j][3])
-    				L[dim[i][1]][dim[i][3]] = L[dim[j][1]][dim[j][3]] + dim[i][2]; //L[z[i]][x[i]] = y[i];
-    			if (dim[i][2]] < dim[j][2] && dim[i][3] < dim[j][3])
-    				L[dim[i][2]][dim[i][3]] = L[dim[j][2]][dim[j][3]] + dim[j][1];
+    	// sort(size.begin(), size.end());
+    	int LIS[block+5], maxH = 0;
+    	for (int i = 1; i <= block; i++) {
+    		for (int j = i-1; j >= 1; j--) {
+    			if (size[j][1] > size[i][1] && size[j][2] > size[i][2] && LIS[j]+1 > LIS[i]) {
+    				LIS[i] = LIS[j] + 1;
+    				size[i][3] += size[j][3];
+       			}
     		}
-    	}
-    	int max = L[dim[n][1]][dim[n][2]];
-    	if (max < L[dim[n][1]][dim[n][3]]) max = L[dim[n][1]][dim[n][3]];
-    	if (max < L[dim[n][2]][dim[n][3]]) max = L[dim[n][2]][dim[n][3]];
-    	cout << max;
+    		maxH = max(maxH, size[i][3]);
+    	} 
+    	cout << maxH << "\n";
     }
 }
