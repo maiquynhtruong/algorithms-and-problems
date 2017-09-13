@@ -1,6 +1,6 @@
 #include <bits/stdc++.h> 
 using namespace std;
-bool debug = true;
+bool debug = false;
 int n, testcases, car, tc = 1;
 int cars[2005];
 int LIS[2005], LDS[2005];
@@ -17,15 +17,15 @@ int main() {
     		cars[i] = car;
     		LIS[i] = 1; LDS[i] = 1;
     	}
-    	for (int i = 2; i <= n; i++) {
-    		for (int j = i-1; j >= 1; j--) {
+    	for (int i = n-1; i >= 1; i--) {
+    		for (int j = i+1; j <= n; j++) {
     			if (cars[j] < cars[i] && LIS[j]+1 > LIS[i]) {
     				LIS[i] = LIS[j]+1;
     			}
     		}
     	}
     	for (int i = n-1; i >= 1; i--) {
-    		for (int j = i+1; j <= n; j++) {
+            for (int j = i+1; j <= n; j++) {
     			if (cars[i] < cars[j] && LDS[i] < LDS[j]+1) {
     				LDS[i] = LDS[j]+1;
     			}
