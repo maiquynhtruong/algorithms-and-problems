@@ -1,4 +1,4 @@
-#include <bits/stdc++.h> 
+	#include <bits/stdc++.h> 
 	using namespace std;
 	bool debug = false;
 	int test, len, temp, n = 0;
@@ -17,13 +17,25 @@
 		    while (cin >> temp && temp != 0) {
 				cars[++n] = temp / 100;
 		    }
-		    for (int car = 1; car <= n; car++) {
+		    fill(trace, trace+n+1, -2);
+		    dp[cars[1]][0] = 1; dp[0][cars[1]] = 1; trace[1]=1;
+		    int maxCar = 1;
+		    for (int car = 2; car <= n; car++) {
 		    	for (int i = 0; i <= len; i++) {
 		    		for (int j = 0; j <= len; j++) {
-		    			if (i >= cars[car] && dp[i-cars[car]][j] == car-1) dp[i][j] = car;
-		    			if (j >= cars[car] && dp[i][j-cars[car]] == car-1) dp[i][j] = car;
+		    			if (i >= cars[car] && dp[i-cars[car]][j] == car-1) {
+		    				if (debug) cout << i << ", " << j << ": " << car << ", trace: " << 0 << "\n";
+		    				dp[i][j] = car;
+		    				trace[car] = 0;
+		    			}
+		    			if (j >= cars[car] && dp[i][j-cars[car]] == car-1) {
+		    				if (debug) cout << i << ", " << j << ": " << car << ", trace: " << 1 << "\n";
+		    				dp[i][j] = car;
+		    				trace[car] = 1;
+		    			}
 		    		}
 		    	}
+		    	if (trace[car] != -2) maxCar++;
 		    }
 		    if (debug) {
 		    	for (int i = 0; i <= len; i++) {
@@ -33,13 +45,12 @@
 		    		cout << "\n";
 		    	}
 		    }
-		    cout << dp[len][len] << "\n";
+		    cout << maxCar << "\n";
+		    for (int i = 1; i <= maxCar; i++) {
+		    	if (trace[i] == 0) cout << "starboard" << "\n";
+		    	else cout << "port" << "\n";
+		    }
 		}
-		    // cout << ans << "\n";
-		    // for (int i = 1; i <= ans; i++) {
-		    // 	if (trace[i] == 0) cout << "port" << "\n";
-		    // 	else cout << "starboard" << "\n";
-		    // }
 	    return 0;
 	}	
 
