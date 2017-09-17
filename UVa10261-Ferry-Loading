@@ -1,62 +1,45 @@
 #include <bits/stdc++.h> 
-using namespace std;
-bool debug = true;
-int test, len, temp, carInd = 1;
-int cars[201], rmPort, rmStar; // remaining space on port and starboard
-int trace[101];
+	using namespace std;
+	bool debug = false;
+	int test, len, temp, n = 0;
+	int cars[201], dp[10005][10005]; // remaining space on port and starboard
+	int trace[101];
 
-int loadFerries(int car, int rmPort, int rmStarBoard) {
-	if (debug) cout << car << " " << rmPort << " " << rmStarBoard << "\n";
-	if (car == carInd || rmPort < cars[car] && rmStarBoard < cars[car]) {
-		return 0;
-	} else {
-		int res = 0;
-		if (rmStarBoard < cars[car]) {
-			res = loadFerries(car + 1, rmPort - cars[car], rmStarBoard);
-			if (res > 0) {
-				trace[car] = 0;
-				return res+1;
-			} else return 1;
-		} else if (rmPort < cars[car]) {
-			res = loadFerries(car + 1, rmPort, rmStarBoard - cars[car]) ;
-			if (res > 0) {
-				trace[car] = 1;
-				return res+1;
-			} else return 1;
-		} else {
-			int port = loadFerries(car + 1, rmPort - cars[car], rmStarBoard);
-			int starboard = loadFerries(car + 1, rmPort, rmStarBoard - cars[car]);
-			if (port > starboard) {
-				trace[car] = 0;
-				return port + 1;
-			} else {
-				trace[car] = 1;
-				return starboard + 1;
-			}
+	int main() {
+	    ifstream cin("ferry-loading.inp");
+	    ios_base::sync_with_stdio(false);
+	    cin.tie(NULL);
+	    cin >> test;
+	    while (test--) {
+	    	n = 0; cars[n] = 0;
+	    	cin >> len; 
+	    	for (int i = 0; i <= len; i++) fill(dp[i], dp[i]+len, 0);
+		    while (cin >> temp && temp != 0) {
+				cars[++n] = temp / 100;
+		    }
+		    for (int car = 1; car <= n; car++) {
+		    	for (int i = 0; i <= len; i++) {
+		    		for (int j = 0; j <= len; j++) {
+		    			if (i >= cars[car] && dp[i-cars[car]][j] == car-1) dp[i][j] = car;
+		    			if (j >= cars[car] && dp[i][j-cars[car]] == car-1) dp[i][j] = car;
+		    		}
+		    	}
+		    }
+		    if (debug) {
+		    	for (int i = 0; i <= len; i++) {
+		    			for (int j = 0; j <= len; j++) {
+		    				cout << dp[i][j] << " ";
+		    			}
+		    		cout << "\n";
+		    	}
+		    }
+		    cout << dp[len][len] << "\n";
 		}
-		
-	}
-	
-}
-int main() {
-    ifstream cin("ferry-loading.inp");
-    ios_base::sync_with_stdio(false);
-    cin.tie(NULL);
-    cin >> test >> len;
-    while (true) {
-    	cin >> temp;
-    	if (temp > 0) {
-    		cars[carInd] = temp / 100;
-    		carInd++;
-    	}
-    	else break;
-    }
-    int ans = loadFerries(1, len, len);
-    cout << ans << "\n";
-    for (int i = 1; i <= ans; i++) {
-    	if (trace[i] == 0) cout << "port" << "\n";
-    	else cout << "starboard" << "\n";
-    }
-    return 0;
-	}
+		    // cout << ans << "\n";
+		    // for (int i = 1; i <= ans; i++) {
+		    // 	if (trace[i] == 0) cout << "port" << "\n";
+		    // 	else cout << "starboard" << "\n";
+		    // }
+	    return 0;
+	}	
 
