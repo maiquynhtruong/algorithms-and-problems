@@ -2,8 +2,8 @@
 	using namespace std;
 	bool debug = false;
 	int test, len, temp, n = 0;
-	int cars[201], dp[10005][10005]; // remaining space on port and starboard
-	int trace[101];
+	int cars[205], dp[205][10005]; // remaining space on port and starboard
+	int trace[205][10005], sum[205];
 
 	int main() {
 	    ifstream cin("ferry-loading.inp");
@@ -12,44 +12,50 @@
 	    cin >> test;
 	    while (test--) {
 	    	n = 0; cars[n] = 0;
-	    	cin >> len; 
+	    	cin >> len; len *= 100;
 	    	for (int i = 0; i <= len; i++) fill(dp[i], dp[i]+len, 0);
 		    while (cin >> temp && temp != 0) {
-				cars[++n] = temp / 100;
+				cars[++n] = temp;
+				sum[n] += sum[n-1] + temp;
 		    }
-		    fill(trace, trace+n+1, -2);
-		    dp[cars[1]][0] = 1; dp[0][cars[1]] = 1; trace[1]=1;
-		    int maxCar = 1;
-		    for (int car = 2; car <= n; car++) {
-		    	for (int i = 0; i <= len; i++) {
-		    		for (int j = 0; j <= len; j++) {
-		    			if (i >= cars[car] && dp[i-cars[car]][j] == car-1) {
-		    				if (debug) cout << i << ", " << j << ": " << car << ", trace: " << 0 << "\n";
-		    				dp[i][j] = car;
-		    				trace[car] = 0;
-		    			}
-		    			if (j >= cars[car] && dp[i][j-cars[car]] == car-1) {
-		    				if (debug) cout << i << ", " << j << ": " << car << ", trace: " << 1 << "\n";
-		    				dp[i][j] = car;
-		    				trace[car] = 1;
-		    			}
-		    		}
-		    	}
-		    	if (trace[car] != -2) maxCar++;
-		    }
+		    // for (int i = 0; i <= n; i++) fill(trace[i], trace[i]+len+1, -2);
+		    // int maxCar = 1; bool done = false;
+		    // for (int c = 1; c <= n && !done; c++) {
+		    // 	for (int l = 0; l <= len && !done; l++) {
+		    // 		if (dp[c][l]==1) {
+		    // 			bool ok = false;
+		    			// if (l + cars[c] <= len) {
+		    			// 	dp[c+1][l+cars[c]] = 1;
+		    			// 	trace[c+1][l+cars[c]] = 0;
+		    			// 	ok = true;
+		    			// } 
+		    			// if (sum[c]-l+cars[c] <= len) {
+		    			// 	dp[c+1][l] = 1;
+		    			// 	trace[c+1][l] = 1;
+		    			// 	ok = true;
+		    			// }
+		    			// if (ok) maxCar++; 
+		    			// else done = true;
+		    // 		}
+		    // 	}
+		    // }
 		    if (debug) {
-		    	for (int i = 0; i <= len; i++) {
+		    	for (int i = 0; i <= n; i++) {
 		    			for (int j = 0; j <= len; j++) {
 		    				cout << dp[i][j] << " ";
 		    			}
 		    		cout << "\n";
 		    	}
 		    }
-		    cout << maxCar << "\n";
-		    for (int i = 1; i <= maxCar; i++) {
-		    	if (trace[i] == 0) cout << "starboard" << "\n";
-		    	else cout << "port" << "\n";
-		    }
+		    // cout << maxCar << "\n";
+		    // int curLen = 0;
+		    // for (int i = 1; i <= maxCar; i++) {
+		    // 	if (curLen + cars[i] <= len) {
+		    // 		curLen += cars[i];
+		    // 	} 
+		    // 	if (trace[i][curLen] == 0) cout << "starboard" << "\n";
+		    // 	else cout << "port" << "\n";
+		    // }
 		}
 	    return 0;
 	}	
