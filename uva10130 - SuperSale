@@ -1,0 +1,34 @@
+#include <bits/stdc++.h> 
+using namespace std;
+bool debug = false;
+int P[1005], W[1005], N, T, G, MW[35], test, dp[1005][35];;
+int main() {
+	//ifstream cin("supersale.inp");
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    cin >> test;
+    while (test--) {
+    	cin >> N;
+    	int maxVal = 0;
+    	for (int i = 1; i <= N; i++) {
+    		cin >> P[i] >> W[i];
+    	}
+    	cin >> G;
+    	for (int i = 1; i <= G; i++) {
+    		cin >> MW[i];
+    		
+    		for (int r = 0; r <= N; r++) fill(dp[r], dp[r] + MW[i] + 5, 0);
+    		for (int n = 1; n <= N; n++) {
+    			for (int w = 0; w <= MW[i]; w++) {
+    				dp[n][w] = dp[n-1][w];
+    				if (W[n] <= w && dp[n][w] < dp[n-1][w-W[n]] + P[n]) {
+    					dp[n][w] = dp[n-1][w-W[n]] + P[n];
+    				}
+    			}
+    		}
+    		maxVal += dp[N][MW[i]];
+    		// cout << dp[N][MW[i]] << " -> max[" << i << "]= " << maxVal << "\n";
+    	}
+    	cout << maxVal << "\n";
+    }
+}
