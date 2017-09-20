@@ -3,7 +3,7 @@ using namespace std;
 bool debug = false;
 int ti, w, n, d[35], v[35], dp[35][1005];
 int main() {
-	ifstream cin("diving-for-gold.inp");
+	//ifstream cin("diving-for-gold.inp");
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
     while (cin >> ti >> w) {
@@ -40,7 +40,7 @@ int main() {
     		}
     		i--;
     	}
-    	cout << d[n][ti] << "\n" << treasures.size() << "\n";
+    	cout << dp[n][ti] << "\n" << treasures.size() << "\n";
     	for (int tr = treasures.size()-1; tr >= 0; tr--) {
     		cout << treasures[tr].first << " " << treasures[tr].second << "\n";
     	}
