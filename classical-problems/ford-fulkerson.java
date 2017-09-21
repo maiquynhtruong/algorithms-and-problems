@@ -63,7 +63,7 @@ class MaxFlow {
 			for (int v = t; v != s; v = parent[v]) {
 				int u = parent[v];
 				rGraph[u][v] += pathFlow;
-				rGraph[v][u] -= pathAlong
+				rGraph[v][u] -= pathFlow
 			}
 			maxFlow += pathFlow;
 		}
