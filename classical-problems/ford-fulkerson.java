@@ -29,8 +29,8 @@ class MaxFlow {
         	// return true, else false
         	return (visited[t] == true);
 		
-	}
-	// find maximal flow in the network with source s and sink t
+	}	
+		// find maximal flow in the network with source s and sink t
 	int fordFulkerson(int graph[][], int s, int t) {
 		int resGraph[][] = new int[V][V];
 		
@@ -40,8 +40,7 @@ class MaxFlow {
 
 		// Residual graph where rGraph[i][j] indicates
 		// residual capacity of edge from i to j (if there
-		// is an edge. If rGraph[i][j] is 0, then there is
-		// not)
+		// is an edge. If rGraph[i][j] is 0, then there is not)
 		for (int u = 0; u < V; u++) {
 			for (int v = 0; v < V; v++) {
 				rGraph[u][v] = graph[u][v];	
@@ -53,8 +52,7 @@ class MaxFlow {
 		// Augment the flow while tere is path from source to sink
 		while (bfs(rGraph, s, t, parent) {
 			int pathFlow = Integer.MAX_VALUE;
-		    // Find minimum residual capacity of the edhes
-		    // along the path filled by BFS. Or we can say
+		    // Find minimum residual capacity of the edhes along the path filled by BFS. Or we can say
 		    // find the maximum flow through the path found.
 			for (int v = t ; v != s; v = parent[v]) {
 				int u = parent[v];
