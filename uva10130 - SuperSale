@@ -1,9 +1,10 @@
 #include <bits/stdc++.h> 
 using namespace std;
 bool debug = false;
-int P[1005], W[1005], N, T, G, MW[35], test, dp[1005][35];;
+int P[1005], W[1005], N, T, G, MW[105], test, dp[1005][105];
 int main() {
-	//ifstream cin("supersale.inp");
+	ifstream cin("supersale.inp");
+    freopen("supersale.out","w",stdout);
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
     cin >> test;
