@@ -4,6 +4,26 @@ bool debug = true;
 int n, test, mstCost;
 vector<pair<int, int> > points;
 vector<pair<int, pair<int, int> > > edges;
+int parent[105], rank[105];
+int find(int x) {
+	if (parent[x] != x) {
+		parent[x] = find(parent[x]);
+	}
+	return parent[x];
+}
+
+void union(int x, int y) {
+	int xRoot = find(x), yRoot = find(y);
+	if (rank[parent[xRoot]] < rank[parent[yRoot]]) {
+		parent[xRoot] = yRoot;
+	} else (rank[parent[xRoot]] > rank[parent[yRoot]]) {
+		parent[yRoot] = xRoot;
+	} else {
+		parent[yRoot] = xRoot;
+		rank[xRoot]++;
+	}
+}
+
 int main() {
 	ifstream cin("freckles.in");
     ios_base::sync_with_stdio(false);
