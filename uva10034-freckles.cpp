@@ -25,7 +25,7 @@ void union(int x, int y) {
 }
 
 int main() {
-	ifstream cin("freckles.in");
+//ifstream cin("freckles.in");
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
     cin >> test;
@@ -47,7 +47,7 @@ int main() {
     	sort(edges.begin(), edges.end());
     	for (int i = 1; i < edges.size(); i++) {
     		pair<int, pair<int, int> > edge = edges[i];
-    		if (!isSameSet(edges[i].second.first, edges[i].second.second)) {
+    		if (find(edges[i].second.first) != find(edges[i].second.second)) {
     			mstCost += edges[i].first;
     			unionSet(edges[i].second.first, edges[i].second.second);
     		}
