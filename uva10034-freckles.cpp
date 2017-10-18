@@ -1,63 +1,72 @@
 #include <bits/stdc++.h> 
 using namespace std;
 bool debug = true;
-int n, test, mstCost;
-vector<pair<int, int> > points;
-vector<pair<int, pair<int, int> > > edges;
-int parent[105], rank[105];
-
-void makeSet(int x) {
+int parent[105], rnk[105];
+ 
+void uf_makeset(int x) {
 	parent[x] = x;
-	rank[x] = 0;
+	rnk[x] = 0;
 }
-int find(int x) {
+int uf_find(int x) {
 	while (x != parent[x]) {
 		x = parent[x];
 	}
 	return x;
 }
-
-void union(int x, int y) {
-	int xRoot = find(x), yRoot = find(y);
-	if (xRoot == yRoot) return;
+void uf_union(int x, int y) {
+	int rx = uf_find(x), ry = uf_find(y);
+	if (rx == ry) return;
 	// Attach smaller rank tree under root of high rank tree (Union by Rank)
-	if (xRoot > yRoot) {
-		parent[yRoot] = xRoot;
+	if (rx > ry) {
+		parent[ry] = rx;
 	} else {
-		parent[xRoot] = yRoot;
+		parent[rx] = ry;
 		// If ranks are same, then make one as root and increment its rank by one
-		if (rank[xRoot] == rank[yRoot]) rank[yRoot]++;
-	} 
+		if (rnk[rx] == rnk[ry]) rnk[ry]++;
+	}
 }
-compare(pair<int, pair<int, int> > a, <pair<int, pair<int, int> > b) {
-	return a.first > b.first;
+bool compare(pair<float, pair<int, int>> &a, pair<float, pair<int, int>> &b) {
+	return a.first < b.first;
+}
+float euclidian(pair<float, float> &a, pair<float, float> &b) {
+	float f = a.first - b.first, s = a.second - b.second;
+	return sqrt(f*f + s*s);
 }
 int main() {
-//ifstream cin("freckles.in");
-    ios_base::sync_with_stdio(false);
-    cin.tie(NULL);
-    cin >> test;
-    while (test--) {
-    	cin >> n;
-    	edges.clear(); points.clear();
-    	edges.push_back(0, make_pair(0, 0)); points.push_back(make_pair(0, 0));
-    	for (int i = 1; i <= n; i++) {
-    		int u, v;
-    		cin >> u >> v;
-    		u *= 10; v *= 10;
-    		for (int j = 1; j < points.size(); j++) {
-    			int x = points[j].first - u, y = points[j].second - v;
-    			edges.push_back(make_pair(x*x + y*y, make_pair(j, i)));
-    		}
-    		points.push_back(make_pair(i, make_pair(u, v)));
-    	}
-    	sort(edges.begin(), edges.end(), compare);
-    	for (int i = 1; i < edges.size(); i++) {
-    		if (find(edges[i].second.first) != find(edges[i].second.second)) {
-    			mstCost += sqrt(edges[i].first);
-    			unionSet(edges[i].second.first, edges[i].second.second);
-    		}
-    	}
-    	cout << "Minimum Spanning Tree cost is " << mstCost << "\n";
+    int n, T;
+    float u, v;
+    scanf("%d", &T);
+    while (T--) {
+    	scanf("%d", &n);
+    	vector<pair<float, float>> points; points.clear();
+    
+	for (int i = 0; i < n; i++) {
+	            scanf("%f %f", &u, &v);
+	            // printf("%.2f %.2f\n", u, v);
+	            points.push_back(make_pair(u, v));
+	}
+ 
+        for (int i = 0; i < n; i++) uf_makeset(i);
+    	
+    vector<pair<float, pair<int, int> > > E; E.clear();
+    vector<pair<float, pair<int, int> > > X; X.clear();
+        for (int i = 0; i < n; i++) {
+            for (int j = i + 1; j < n; j++) {
+                E.push_back(make_pair(euclidian(points[i], points[j]), make_pair(i, j)));
+            }
+        }
+        sort(E.begin(), E.end(), compare);
+ 
+         for (int i = 0; i < E.size(); i++) {
+            if (uf_find(E[i].second.first) != uf_find(E[i].second.second)) {
+                X.push_back(E[i]);
+                uf_union(E[i].second.first, E[i].second.second);
+            }
+        }
+    	float mstCost = 0;
+    	for (int i = 0; i < X.size(); i++) mstCost += X[i].first;
+    	printf("%.2f\n", mstCost);
+    	if (T > 0) cout << "\n";
+    	
     }
 }
