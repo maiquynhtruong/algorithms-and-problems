@@ -23,20 +23,24 @@ public class Solution {
     public int flipDigit(int[] nums) {
         int minFlips = nums.length+1, zeroes = 0, ones = 0;
         int[] numsOf0 = new int[nums.length], numsOf1 = new int[nums.length];
+        
         for (int i = 0; i < nums.length; i++) {
-            if (nums[i] == 0) {
-                numsOf0[i] = zeroes;
-                zeroes++;
-            }
+            if (nums[i] == 0) { zeroes++; }
+            numsOf0[i] = zeroes;
+            // System.out.print(zeroes + " ");
         }
+        System.out.println();
         for (int i = nums.length-1; i >= 0; i--) {
-            if (nums[i] == 1) {
-                numsOf1[i] = ones;
-                ones++;
-            }
+            if (nums[i] == 1) { ones++; }
+            numsOf1[i] = ones;
+            // System.out.print(ones + " ");
         }
-        for (int i = 0; i < nums.length; i++) {
-            if (numsOf0[i] + numsOf1[i] < minFlips) minFlips = numsOf0[i] + numsOf1[i];
+        for (int i = 0; i < nums.length-1; i++) {
+            System.out.println(numsOf0[i] + ", " + numsOf1[i+1]);
+        }
+        // System.out.println("ones= " + ones + ", zeroes= " + zeroes);
+        for (int i = 0; i < nums.length-1; i++) {
+            if (numsOf0[i] + numsOf1[i+1] < minFlips) minFlips = numsOf0[i] + numsOf1[i+1];
         }
         return minFlips;
     }
